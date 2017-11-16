@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create User</title>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create New User</h1>
+      <form action="/users/save" method="post">
+        <table>
+          <tbody>
+            <tr>
+              <td>Usuario</td>
+              <td><input type="text" name="userName" /></td>
+            </tr>
+            <tr>
+              <td>Contraseña</td>
+              <td><input type="text" name="password" /></td>
+            </tr>
+              <td colspan="2"><input type="submit" value="Save" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>
+
+
+<script type="text/javascript">
+    
+        function validar(){
+            $.ajax({
+                url: '/UsuarioController',
+                type: "POST",
+                dataType: "json",
+                data: {"texto": $('#userName').val()},
+                success: function(res){
+                    //if(res.success)
+                    //{ 
+                        alert("Usuario existente"); 
+                        $('#userName').val(res.status);
+                    //}
+                    console.log('success');  
+                }
+            });
+    
+        }
+        $("#userName")
+    
+    </script>
