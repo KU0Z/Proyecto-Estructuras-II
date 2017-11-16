@@ -12,6 +12,7 @@ mongoose.connect('mongodb://kouz:kouz@ds259255.mlab.com:59255/apimensajes')
   .catch((err) => console.error(err));
 var index = require('./routes/index');
 var users = require('./routes/users');
+var chat = require('./routes/chat');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/chat', chat);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
