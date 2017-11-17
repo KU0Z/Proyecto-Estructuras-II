@@ -10,16 +10,15 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://kouz:kouz@ds259255.mlab.com:59255/apimensajes')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var chat = require('./routes/chat');
-
-var app = express();
-
+var app=express()
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.io= require('socket.io')();;
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -30,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/chat', chat);
+app.use('/chat', chat(app.io));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -49,5 +48,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
